@@ -23,11 +23,11 @@ module Puppet::Parser::Functions
                  else
                    [value_setting]
                  end
-        type.gsub!(%r{([_-]list)$}, '')
+        type = type.gsub(%r{([_-]list)$}, '')
 
         values.each do |value|
           # ignore undef if not required
-          next if required == false && value == :undef
+          next if required == false && (value == :undef || value == nil)
           raise 'This directive is required, please set value' if value == :undef
 
           # defaults:
